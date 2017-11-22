@@ -1,0 +1,5 @@
+<resources>
+<string name="app_name">SangsungSDS</string>
+<string name="title">보안체크!</string>
+<string name="desc">퇴근 전 보안체크 하시기 바랍니다. 1) 휴대폰 확인 2) 보안용지 확인 3) 책상정돈 4) PC/서랍시건</string>
+</resources>

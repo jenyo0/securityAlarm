@@ -11,35 +11,31 @@ import android.util.Log;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.d("jojo", "onCreate");
 
-        new AlarmHATT(getApplicationContext()).Alarm();
+        setAlarm();
     }
 
-    public class AlarmHATT {
-        private Context context;
-        public AlarmHATT(Context context) {
-            this.context=context;
-        }
-        public void Alarm() {
-            AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-            Intent intent = new Intent(context, BroadCaseD.class);
+    private void setAlarm(){
 
-            PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);
+        AlarmManager manager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        Intent myIntent;
+        PendingIntent pendingIntent;
 
-            Calendar calendar = Calendar.getInstance();
-            //알람시간 calendar에 set해주기
+        myIntent = new Intent(MainActivity.this, AlarmReceiver.class);
+        pendingIntent = PendingIntent.getBroadcast(this, 0, myIntent, 0);
 
-            calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 18, calendar.get(Calendar.MINUTE)+1, 0);
+        Calendar calendar = Calendar.getInstance();
+        //알람시간 calendar에 set해주기
+        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 16, 30, 0);
 
-            Log.d("jojo", calendar.getTime().toString());
-            //알람 예약
-            am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY, sender);
-        }
+        Log.d("jojo", calendar.getTime().toString());
+        manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
     }
-
 }
 

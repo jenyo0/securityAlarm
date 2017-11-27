@@ -32,10 +32,13 @@ public class MainActivity extends AppCompatActivity {
 
         Calendar calendar = Calendar.getInstance();
         //알람시간 calendar에 set해주기
-        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 16, 30, 0);
+       // calendar.set(Calendar.HOUR, 00);
+       // calendar.set(Calendar.MINUTE, 4);
+       // calendar.set(Calendar.SECOND, 0);
+        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 10, 15, 0);
 
         Log.d("jojo", calendar.getTime().toString());
         manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-    }
-}
+        }
+        }
 

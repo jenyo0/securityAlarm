@@ -6,7 +6,6 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
@@ -27,8 +26,8 @@ public class BroadCaseD extends BroadcastReceiver {
 
         NotificationCompat.Builder mBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(context)
                 .setDefaults(Notification.DEFAULT_SOUND|Notification.DEFAULT_VIBRATE)
-                .setContentTitle(Resources.getSystem().getString(R.string.title))
-                .setContentText(Resources.getSystem().getString(R.string.desc))
+                .setContentTitle("보안체크!")
+                .setContentText("퇴근 전 보안체크 하시기 바랍니다. 1) 휴대폰 확인 2) 보안용지 확인 3) 책상정돈 4) PC/서랍시건")
                 .setSmallIcon(R.drawable.warnig_icon);
 
         Intent resultIntent = new Intent(context, MainActivity.class);

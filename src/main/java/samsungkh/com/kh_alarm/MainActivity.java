@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         Intent myIntent;
         PendingIntent pendingIntent;
 
-        myIntent = new Intent(MainActivity.this, AlarmReceiver.class);
+        myIntent = new Intent(MainActivity.this, BroadCaseD.class);
         pendingIntent = PendingIntent.getBroadcast(this, 0, myIntent, 0);
 
         Calendar calendar = Calendar.getInstance();
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
        // calendar.set(Calendar.HOUR, 00);
        // calendar.set(Calendar.MINUTE, 4);
        // calendar.set(Calendar.SECOND, 0);
-        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 10, 15, 0);
+        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 23, 43, 0);
 
         Log.d("jojo", calendar.getTime().toString());
         manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);

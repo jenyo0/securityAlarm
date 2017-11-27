@@ -19,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".AlarmReceiver"/>
+        <receiver android:name=".BroadCaseD"/>
     </application>
 
 </manifest>

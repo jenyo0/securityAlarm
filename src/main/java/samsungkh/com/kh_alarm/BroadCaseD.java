@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
+import java.util.Calendar;
+
 /**
  * Created by Sangwon on 2017-11-19.
  */
@@ -22,33 +24,39 @@ public class BroadCaseD extends BroadcastReceiver {
 
         Log.d("jojo", "received!!!!");
 
-        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        Calendar cal = Calendar.getInstance();
+        int num = cal.get(Calendar.DAY_OF_WEEK);
 
-        NotificationCompat.Builder mBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(context)
-                .setDefaults(Notification.DEFAULT_SOUND|Notification.DEFAULT_VIBRATE)
-                .setContentTitle("보안체크!")
-                .setContentText("퇴근 전 보안체크 하시기 바랍니다. 1) 휴대폰 확인 2) 보안용지 확인 3) 책상정돈 4) PC/서랍시건")
-                .setSmallIcon(R.drawable.warnig_icon);
+        Log.d("jojo", String.valueOf(num));
 
-        Intent resultIntent = new Intent(context, MainActivity.class);
+        if(num >= 2 && num <= 6){
 
-        PendingIntent resultPendingIntent =
-                PendingIntent.getActivity(
-                        context,
-                        0,
-                        resultIntent,
-                        PendingIntent.FLAG_UPDATE_CURRENT
-                );
+            //요일별 이미지 선택하도록 소스 구현예정
 
-        mBuilder.setContentIntent(resultPendingIntent);
+            Log.d("jojo", String.valueOf(num));
 
-        // Sets an ID for the notification
-        int mNotificationId = 001;
-        // Gets an instance of the NotificationManager service
-//        NotificationManager mNotifyMgr =
-//                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        // Builds the notification and issues it.
-        notificationManager.notify(mNotificationId, mBuilder.build());
+            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+            NotificationCompat.Builder mBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(context)
+                    .setDefaults(Notification.DEFAULT_SOUND|Notification.DEFAULT_VIBRATE)
+                    .setContentTitle("보안체크!")
+                    .setContentText("퇴근 전 보안체크 하시기 바랍니다. 1) 휴대폰 확인 2) 보안용지 확인 3) 책상정돈 4) PC/서랍시건")
+                    .setSmallIcon(R.drawable.warnig_icon);
+
+            Intent resultIntent = new Intent(context, MainActivity.class);
+
+            PendingIntent resultPendingIntent =
+                    PendingIntent.getActivity(
+                            context,
+                            0,
+                            resultIntent,
+                            PendingIntent.FLAG_UPDATE_CURRENT
+                    );
+
+            mBuilder.setContentIntent(resultPendingIntent);
+            int mNotificationId = 001;
+            notificationManager.notify(mNotificationId, mBuilder.build());
+        }
 
     }
 }

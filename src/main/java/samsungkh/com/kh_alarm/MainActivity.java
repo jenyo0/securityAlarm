@@ -18,10 +18,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Log.d("jojo", "onCreate");
 
-        setAlarm();
+        setAlarm1();
+        setAlarm2();
     }
 
-    private void setAlarm(){
+    public void setAlarm1(){
 
         AlarmManager manager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
         Intent myIntent;
@@ -30,15 +31,27 @@ public class MainActivity extends AppCompatActivity {
         myIntent = new Intent(MainActivity.this, BroadCaseD.class);
         pendingIntent = PendingIntent.getBroadcast(this, 0, myIntent, 0);
 
+        //오후 알람
         Calendar calendar = Calendar.getInstance();
-        //알람시간 calendar에 set해주기
-       // calendar.set(Calendar.HOUR, 00);
-       // calendar.set(Calendar.MINUTE, 4);
-       // calendar.set(Calendar.SECOND, 0);
-        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 23, 43, 0);
-
+        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 11, 30, 0);
         Log.d("jojo", calendar.getTime().toString());
         manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-        }
-        }
+    }
+
+    public void setAlarm2(){
+
+        AlarmManager manager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        Intent myIntent;
+        PendingIntent pendingIntent;
+
+        myIntent = new Intent(MainActivity.this, BroadCaseD.class);
+        pendingIntent = PendingIntent.getBroadcast(this, 1, myIntent, 0);
+
+        //오전 알람
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 16, 30, 0);
+        Log.d("jojo", calendar.getTime().toString());
+        manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+    }
+}
 

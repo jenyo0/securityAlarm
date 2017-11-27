@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         myIntent = new Intent(MainActivity.this, BroadCaseD.class);
         pendingIntent = PendingIntent.getBroadcast(this, 0, myIntent, 0);
 
-        //오후 알람
+        //오전 알람
         Calendar calendar = Calendar.getInstance();
         calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 11, 30, 0);
         Log.d("jojo", calendar.getTime().toString());
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         myIntent = new Intent(MainActivity.this, BroadCaseD.class);
         pendingIntent = PendingIntent.getBroadcast(this, 1, myIntent, 0);
 
-        //오전 알람
+        //오후 알람
         Calendar calendar = Calendar.getInstance();
         calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 16, 30, 0);
         Log.d("jojo", calendar.getTime().toString());

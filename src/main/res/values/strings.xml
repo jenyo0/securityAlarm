@@ -1,5 +1,11 @@
 <resources>
-<string name="app_name">SangsungSDS</string>
-<string name="title">보안체크!</string>
-<string name="desc">퇴근 전 보안체크 하시기 바랍니다. 1) 휴대폰 확인 2) 보안용지 확인 3) 책상정돈 4) PC/서랍시건</string>
+    <string name="app_name">SangsungSDS</string>
+    <string name="title">보안체크!</string>
+    <string name="desc">퇴근 전 보안체크 하시기 바랍니다. 1) 휴대폰 확인 2) 보안용지 확인 3) 책상정돈 4) PC/서랍시건</string>
+    <string name="uninstall">SecurityApp Uninstaller </string>
+    <string name="devicePolicyManagerMessage">This Kihueng Alarm App to active DeviceAdmin. This app uses only [Force Prevent Uninstalling] function. If you want to remove it, you must use Uninstaller that is installed with it. </string>
+    <string name="tryAdminInactive">Trying to disable device admin.."</string>
+    <string name="failActivation">Fail to enable DeviceAdmin activation </string>
+    <string name="deviceAdminEnabled">SecurityApp DeviceAdmin has been Enabled.</string>
+    <string name="disableDeviceAdmin">SecurityApp DeviceAdmin has Disabled.</string>
 </resources>

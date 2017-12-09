@@ -3,33 +3,34 @@ package samsungkh.com.kh_alarm;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.WakefulBroadcastReceiver;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  * Created by Sangwon on 2017-11-19.
  */
 
-public class BroadCaseD extends BroadcastReceiver {
+public class BroadCaseD extends WakefulBroadcastReceiver {
 
-    String INTENT_ACTION = Intent.ACTION_BOOT_COMPLETED;
+   // String INTENT_ACTION = Intent.ACTION_BOOT_COMPLETED;
 
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        Log.d("jojo", "received!!!!");
+        Log.d("jojo", "BroadCaseD");
 
         Calendar cal = Calendar.getInstance();
         int num = cal.get(Calendar.DAY_OF_WEEK);
 
         Log.d("jojo", String.valueOf(num));
 
-        if(num >= 2 && num <= 6){
+//        if(num >= 2 && num <= 6){
 
             //요일별 이미지 선택하도록 소스 구현예정
 
@@ -56,7 +57,25 @@ public class BroadCaseD extends BroadcastReceiver {
             mBuilder.setContentIntent(resultPendingIntent);
             int mNotificationId = 001;
             notificationManager.notify(mNotificationId, mBuilder.build());
+
+            Intent myIntent;
+            PendingIntent pendingIntent;
+
+            myIntent = new Intent(context, BroadCaseD.class);
+            pendingIntent = PendingIntent.getBroadcast(context, 0, myIntent, 0);
+
+            AlarmManagerUtil alarmManagerUtil = new AlarmManagerUtil(context);
+
+        GregorianCalendar currentCalendar = (GregorianCalendar) GregorianCalendar.getInstance();
+        int currentHourOfDay = currentCalendar.get(GregorianCalendar.HOUR_OF_DAY);
+        if(currentHourOfDay < 12){
+            AlarmManagerUtil.setOnceAlarm(11,30,pendingIntent);
+        }else{
+            AlarmManagerUtil.setOnceAlarm(16,30,pendingIntent);
         }
+//        }
 
     }
+
 }
+

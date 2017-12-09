@@ -12,18 +12,16 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import java.util.Calendar;
-import java.util.Date;
-
 public class MainActivity extends AppCompatActivity {
 
     DevicePolicyManager deviceMgr;
     ComponentName comp;
     private ComponentName mAdminComponentName;
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+   @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+        protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
         deviceMgr = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
@@ -68,35 +66,25 @@ public class MainActivity extends AppCompatActivity {
         myIntent = new Intent(MainActivity.this, BroadCaseD.class);
         pendingIntent = PendingIntent.getBroadcast(this, 0, myIntent, 0);
 
-        //오전 알람
-        Calendar calendar = Calendar.getInstance();
-        Date d = calendar.getTime();
-        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 11, 30, 0);
-        Date d1 = calendar.getTime();
-        if(d1.getTime() < d.getTime()){
-            calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE)+1, 11, 30, 0);
-        }
-        manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        Log.d("jojo", "setAlarm1");
+        AlarmManagerUtil alarmManagerUtil = new AlarmManagerUtil(this);
+        AlarmManagerUtil.setOnceAlarm(11, 30, pendingIntent);
+
     }
 
-    public void setAlarm2(){
+    public void setAlarm2() {
 
-        AlarmManager manager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent myIntent;
         PendingIntent pendingIntent;
 
         myIntent = new Intent(MainActivity.this, BroadCaseD.class);
         pendingIntent = PendingIntent.getBroadcast(this, 1, myIntent, 0);
 
-        //오후 알람
-        Calendar calendar = Calendar.getInstance();
-        Date d = calendar.getTime();
-        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 16, 30, 0);
-        Date d1 = calendar.getTime();
-        if(d1.getTime() < d.getTime()){
-            calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE)+1, 16, 30, 0);
-        }
-        manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        Log.d("jojo", "setAlarm1");
+        AlarmManagerUtil alarmManagerUtil = new AlarmManagerUtil(this);
+        AlarmManagerUtil.setOnceAlarm(16, 30, pendingIntent);
+
     }
 }
 

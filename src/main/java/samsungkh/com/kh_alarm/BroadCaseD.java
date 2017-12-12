@@ -18,8 +18,6 @@ import java.util.GregorianCalendar;
 
 public class BroadCaseD extends WakefulBroadcastReceiver {
 
-   // String INTENT_ACTION = Intent.ACTION_BOOT_COMPLETED;
-
     @Override
     public void onReceive(Context context, Intent intent) {
 
@@ -28,9 +26,7 @@ public class BroadCaseD extends WakefulBroadcastReceiver {
         Calendar cal = Calendar.getInstance();
         int num = cal.get(Calendar.DAY_OF_WEEK);
 
-        Log.d("jojo", String.valueOf(num));
-
-//        if(num >= 2 && num <= 6){
+        if(num >= 2 && num <= 6){
 
             //요일별 이미지 선택하도록 소스 구현예정
 
@@ -58,22 +54,18 @@ public class BroadCaseD extends WakefulBroadcastReceiver {
             int mNotificationId = 001;
             notificationManager.notify(mNotificationId, mBuilder.build());
 
-            Intent myIntent;
-            PendingIntent pendingIntent;
-
-            myIntent = new Intent(context, BroadCaseD.class);
-            pendingIntent = PendingIntent.getBroadcast(context, 0, myIntent, 0);
+            Intent myIntent = new Intent(context, BroadCaseD.class);
 
             AlarmManagerUtil alarmManagerUtil = new AlarmManagerUtil(context);
 
-        GregorianCalendar currentCalendar = (GregorianCalendar) GregorianCalendar.getInstance();
-        int currentHourOfDay = currentCalendar.get(GregorianCalendar.HOUR_OF_DAY);
-        if(currentHourOfDay < 12){
-            AlarmManagerUtil.setOnceAlarm(11,30,pendingIntent);
-        }else{
-            AlarmManagerUtil.setOnceAlarm(16,30,pendingIntent);
+            GregorianCalendar currentCalendar = (GregorianCalendar) GregorianCalendar.getInstance();
+            int currentHourOfDay = currentCalendar.get(GregorianCalendar.HOUR_OF_DAY);
+            if(currentHourOfDay < 12){
+                AlarmManagerUtil.setOnceAlarm(11,30,PendingIntent.getBroadcast(context, 0, myIntent, 0));
+            }else{
+                AlarmManagerUtil.setOnceAlarm(16,30,PendingIntent.getBroadcast(context, 1, myIntent, 0));
+            }
         }
-//        }
 
     }
 

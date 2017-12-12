@@ -25,8 +25,6 @@ public  class AlarmManagerUtil {
 
        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
             alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, getTriggerAtMillis(hourOfDay, minute), alarmPendingIntent);
-            // alarmManager.setAlarmClock(new AlarmManager.AlarmClockInfo(getTriggerAtMillis(hourOfDay, minute), alarmPendingIntent), alarmPendingIntent);
-            // 이전 포스팅 참고
         else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, getTriggerAtMillis(hourOfDay, minute), alarmPendingIntent);
         else
@@ -44,7 +42,6 @@ public  class AlarmManagerUtil {
         else
             return getTimeInMillis(true, hourOfDay, minute);
     }
-
 
     private static long getTimeInMillis(boolean tomorrow, int hourOfDay, int minute) {
         GregorianCalendar calendar = (GregorianCalendar) GregorianCalendar.getInstance();

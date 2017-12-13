@@ -6,8 +6,8 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
+    <ImageView
+        android:id="@+id/main_img"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="퇴근 전 보안체크 하시기 바랍니다. 1) 휴대폰 확인 2) 보안용지 확인 3) 책상정돈 4) PC/서랍시건"/>
+        android:layout_height="match_parent" />
 </LinearLayout>

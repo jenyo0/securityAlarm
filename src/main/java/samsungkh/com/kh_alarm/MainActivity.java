@@ -11,12 +11,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
 
     DevicePolicyManager deviceMgr;
     ComponentName comp;
-    private ComponentName mAdminComponentName;
+    ImageView imgView;
 
    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -29,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
         Log.d("jojo", "onCreate");
+
+       imgView = (ImageView) findViewById(R.id.main_img);
+       imgView.setBackgroundResource(R.drawable.sec_1);
 
         if (!deviceMgr.isAdminActive(comp)) {
             Log.d("jojo", "Main :admin is false");

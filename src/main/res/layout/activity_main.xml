@@ -34,6 +34,27 @@
             android:layout_width="0dp"
             android:layout_weight="0.4"
             android:text="3" />
+
+        <Button
+            android:id="@+id/key_4"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="0.4"
+            android:text="4" />
+
+        <Button
+            android:id="@+id/key_5"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="0.4"
+            android:text="5" />
+
+        <Button
+            android:id="@+id/key_6"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="0.4"
+            android:text="6" />
         </LinearLayout>
 
     <ImageView

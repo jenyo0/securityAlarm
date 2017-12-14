@@ -20,6 +20,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button btn1;
     Button btn2;
     Button btn3;
+    Button btn4;
+    Button btn5;
+    Button btn6;
     DevicePolicyManager deviceMgr;
     ComponentName comp;
     ImageView imgView;
@@ -41,9 +44,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
        btn1 = (Button)findViewById(R.id.key_1);
        btn2 = (Button)findViewById(R.id.key_2);
        btn3 = (Button)findViewById(R.id.key_3);
+       btn4 = (Button)findViewById(R.id.key_4);
+       btn5 = (Button)findViewById(R.id.key_5);
+       btn6 = (Button)findViewById(R.id.key_6);
        btn1.setOnClickListener(this);
        btn2.setOnClickListener(this);
        btn3.setOnClickListener(this);
+       btn4.setOnClickListener(this);
+       btn5.setOnClickListener(this);
+       btn6.setOnClickListener(this);
 
 
         if (!deviceMgr.isAdminActive(comp)) {
@@ -110,8 +119,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             imgView.setBackgroundResource(R.drawable.sec_1);
         }else if(view == btn2){
             imgView.setBackgroundResource(R.drawable.sec_2);
-        }else{
+        }else if(view == btn3){
             imgView.setBackgroundResource(R.drawable.sec_3);
+        }else if(view == btn4){
+            imgView.setBackgroundResource(R.drawable.sec_4);
+        }else if(view == btn5){
+            imgView.setBackgroundResource(R.drawable.sec_5);
+        }else{
+            imgView.setBackgroundResource(R.drawable.sec_6);
         }
     }
 }

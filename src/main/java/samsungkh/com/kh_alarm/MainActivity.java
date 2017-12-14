@@ -11,10 +11,15 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
+    Button btn1;
+    Button btn2;
+    Button btn3;
     DevicePolicyManager deviceMgr;
     ComponentName comp;
     ImageView imgView;
@@ -30,9 +35,16 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
         Log.d("jojo", "onCreate");
-
        imgView = (ImageView) findViewById(R.id.main_img);
        imgView.setBackgroundResource(R.drawable.sec_1);
+
+       btn1 = (Button)findViewById(R.id.key_1);
+       btn2 = (Button)findViewById(R.id.key_2);
+       btn3 = (Button)findViewById(R.id.key_3);
+       btn1.setOnClickListener(this);
+       btn2.setOnClickListener(this);
+       btn3.setOnClickListener(this);
+
 
         if (!deviceMgr.isAdminActive(comp)) {
             Log.d("jojo", "Main :admin is false");
@@ -72,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d("jojo", "setAlarm1");
         AlarmManagerUtil alarmManagerUtil = new AlarmManagerUtil(this);
-        AlarmManagerUtil.setOnceAlarm(11, 30, pendingIntent);
+        AlarmManagerUtil.setOnceAlarm(11, 10, pendingIntent);
 
     }
 
@@ -89,6 +101,18 @@ public class MainActivity extends AppCompatActivity {
         AlarmManagerUtil alarmManagerUtil = new AlarmManagerUtil(this);
         AlarmManagerUtil.setOnceAlarm(16, 30, pendingIntent);
 
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        if(view == btn1){
+            imgView.setBackgroundResource(R.drawable.sec_1);
+        }else if(view == btn2){
+            imgView.setBackgroundResource(R.drawable.sec_2);
+        }else{
+            imgView.setBackgroundResource(R.drawable.sec_3);
+        }
     }
 }
 

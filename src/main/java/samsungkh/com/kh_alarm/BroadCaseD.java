@@ -29,6 +29,8 @@ public class BroadCaseD extends WakefulBroadcastReceiver {
         Calendar cal = Calendar.getInstance();
         int num = cal.get(Calendar.DAY_OF_WEEK);
 
+        context.startService(new Intent(context, MainActivity.class));
+
         if(num >= 2 && num <= 6){
             //요일별 이미지 선택
             LayoutInflater li = LayoutInflater.from(context);

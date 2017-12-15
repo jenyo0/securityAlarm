@@ -8,9 +8,6 @@ import android.content.Intent;
 import android.support.v4.content.WakefulBroadcastReceiver;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.ImageView;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -29,23 +26,21 @@ public class BroadCaseD extends WakefulBroadcastReceiver {
         Calendar cal = Calendar.getInstance();
         int num = cal.get(Calendar.DAY_OF_WEEK);
 
-        context.startService(new Intent(context, MainActivity.class));
-
         if(num >= 2 && num <= 6){
-            //요일별 이미지 선택
-            LayoutInflater li = LayoutInflater.from(context);
-            View v = li.inflate(R.layout.activity_main, null, true);
-            ImageView rootView = v.findViewById(R.id.main_img);
-            if(num == 2 || num == 3){
-                Log.d("jojo", "BroadCaseD12");
-                rootView.setBackgroundResource(R.drawable.sec_1);
-            }else if(num == 4 || num == 5){
-                Log.d("jojo", "BroadCaseD34");
-                rootView.setBackgroundResource(R.drawable.sec_2);
-            }else{
-                Log.d("jojo", "BroadCaseD5");
-                rootView.setBackgroundResource(R.drawable.sec_3);
-            }
+//            //요일별 이미지 선택
+//            LayoutInflater li = LayoutInflater.from(context);
+//            View v = li.inflate(R.layout.activity_main, null, true);
+//            ImageView rootView = v.findViewById(R.id.main_img);
+//            if(num == 2 || num == 3){
+//                Log.d("jojo", "BroadCaseD12");
+//                rootView.setBackgroundResource(R.drawable.sec_1);
+//            }else if(num == 4 || num == 5){
+//                Log.d("jojo", "BroadCaseD34");
+//                rootView.setBackgroundResource(R.drawable.sec_2);
+//            }else{
+//                Log.d("jojo", "BroadCaseD5");
+//                rootView.setBackgroundResource(R.drawable.sec_3);
+//            }
 
             Log.d("jojo", String.valueOf(num));
 

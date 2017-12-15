@@ -17,6 +17,7 @@ import android.widget.Toast;
 public class RemoveActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         Log.d("jojo", "RemoveActivity oncreate.");
         ComponentName cmpName = new ComponentName(this, UninstallDeviceAdminReceiver.class);

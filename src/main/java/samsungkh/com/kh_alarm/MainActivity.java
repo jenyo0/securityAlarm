@@ -13,6 +13,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageView;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 public class MainActivity extends AppCompatActivity{
 
     DevicePolicyManager deviceMgr;
@@ -28,8 +31,7 @@ public class MainActivity extends AppCompatActivity{
         deviceMgr = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
         comp = new ComponentName(this, UninstallDeviceAdminReceiver.class);
 
-        setContentView(R.layout.activity_main);
-        Log.d("jojo", "onCreate");
+       setContentView(R.layout.activity_main);
        imgView = (ImageView) findViewById(R.id.main_img);
        imgView.setBackgroundResource(R.drawable.sec_1);
 
@@ -44,6 +46,25 @@ public class MainActivity extends AppCompatActivity{
             startActivityForResult(intent, 0);
         } else {
             Log.d("jojo", "Main : admin is true");
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Calendar cal = Calendar.getInstance();
+        int num = cal.get(Calendar.DAY_OF_WEEK);
+
+        if(num >= 2 && num <= 6) {
+            //요일별 이미지 선택
+            switch(num){
+                case 2: imgView.setBackgroundResource(R.drawable.sec_1); break;
+                case 3: imgView.setBackgroundResource(R.drawable.sec_2); break;
+                case 4: imgView.setBackgroundResource(R.drawable.sec_3); break;
+                case 5: imgView.setBackgroundResource(R.drawable.sec_4); break;
+                case 6: imgView.setBackgroundResource(R.drawable.sec_5); break;
+            }
         }
     }
 
@@ -69,9 +90,14 @@ public class MainActivity extends AppCompatActivity{
         myIntent = new Intent(MainActivity.this, BroadCaseD.class);
         pendingIntent = PendingIntent.getBroadcast(this, 0, myIntent, 0);
 
-        Log.d("jojo", "setAlarm1");
         AlarmManagerUtil alarmManagerUtil = new AlarmManagerUtil(this);
-        AlarmManagerUtil.setOnceAlarm(11, 10, pendingIntent);
+//        AlarmManagerUtil.setOnceAlarm(11, 10, pendingIntent);
+
+        //test
+        GregorianCalendar currentCalendar = (GregorianCalendar) GregorianCalendar.getInstance();
+        int curHour = currentCalendar.get(GregorianCalendar.HOUR_OF_DAY);
+        int curMin = currentCalendar.get(GregorianCalendar.MINUTE);
+        AlarmManagerUtil.setOnceAlarm(curHour, curMin+1, pendingIntent);
 
     }
 
@@ -84,7 +110,6 @@ public class MainActivity extends AppCompatActivity{
         myIntent = new Intent(MainActivity.this, BroadCaseD.class);
         pendingIntent = PendingIntent.getBroadcast(this, 1, myIntent, 0);
 
-        Log.d("jojo", "setAlarm1");
         AlarmManagerUtil alarmManagerUtil = new AlarmManagerUtil(this);
         AlarmManagerUtil.setOnceAlarm(16, 30, pendingIntent);
 

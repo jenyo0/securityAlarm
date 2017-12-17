@@ -14,7 +14,6 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -91,13 +90,13 @@ public class MainActivity extends AppCompatActivity{
         pendingIntent = PendingIntent.getBroadcast(this, 0, myIntent, 0);
 
         AlarmManagerUtil alarmManagerUtil = new AlarmManagerUtil(this);
-//        AlarmManagerUtil.setOnceAlarm(11, 10, pendingIntent);
+        AlarmManagerUtil.setOnceAlarm(10,50+(int)(Math.random()*40 + 1), pendingIntent);
 
         //test
-        GregorianCalendar currentCalendar = (GregorianCalendar) GregorianCalendar.getInstance();
-        int curHour = currentCalendar.get(GregorianCalendar.HOUR_OF_DAY);
-        int curMin = currentCalendar.get(GregorianCalendar.MINUTE);
-        AlarmManagerUtil.setOnceAlarm(curHour, curMin+1, pendingIntent);
+//        GregorianCalendar currentCalendar = (GregorianCalendar) GregorianCalendar.getInstance();
+//        int curHour = currentCalendar.get(GregorianCalendar.HOUR_OF_DAY);
+//        int curMin = currentCalendar.get(GregorianCalendar.MINUTE);
+//        AlarmManagerUtil.setOnceAlarm(curHour, curMin+1, pendingIntent);
 
     }
 
@@ -111,7 +110,7 @@ public class MainActivity extends AppCompatActivity{
         pendingIntent = PendingIntent.getBroadcast(this, 1, myIntent, 0);
 
         AlarmManagerUtil alarmManagerUtil = new AlarmManagerUtil(this);
-        AlarmManagerUtil.setOnceAlarm(16, 30, pendingIntent);
+        AlarmManagerUtil.setOnceAlarm(15,50+(int)(Math.random()*40 + 1), pendingIntent);
 
     }
 

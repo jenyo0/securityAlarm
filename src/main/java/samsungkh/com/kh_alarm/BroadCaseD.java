@@ -29,9 +29,9 @@ public class BroadCaseD extends WakefulBroadcastReceiver {
 
             NotificationCompat.Builder mBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(context)
                     .setDefaults(Notification.DEFAULT_SOUND|Notification.DEFAULT_VIBRATE)
-                    .setContentTitle("보안체크!")
+                    .setContentTitle("Check your Security!")
                     .setContentText("퇴근 전 보안체크 하시기 바랍니다. 1) 휴대폰 확인 2) 보안용지 확인 3) 책상정돈 4) PC/서랍시건")
-                    .setSmallIcon(R.drawable.warnig_icon);
+                    .setSmallIcon(R.drawable.lock_256px);
 
             Intent resultIntent = new Intent(context, MainActivity.class);
 
@@ -54,11 +54,12 @@ public class BroadCaseD extends WakefulBroadcastReceiver {
         AlarmManagerUtil alarmManagerUtil = new AlarmManagerUtil(context);
 
         GregorianCalendar currentCalendar = (GregorianCalendar) GregorianCalendar.getInstance();
+
         int currentHourOfDay = currentCalendar.get(GregorianCalendar.HOUR_OF_DAY);
         if(currentHourOfDay < 12){
-            AlarmManagerUtil.setOnceAlarm(11,30,PendingIntent.getBroadcast(context, 0, myIntent, 0));
+            AlarmManagerUtil.setOnceAlarm(10,50+(int)(Math.random()*40 + 1),PendingIntent.getBroadcast(context, 0, myIntent, 0));
         }else{
-            AlarmManagerUtil.setOnceAlarm(16,30,PendingIntent.getBroadcast(context, 1, myIntent, 0));
+            AlarmManagerUtil.setOnceAlarm(15,50+(int)(Math.random()*40 + 1),PendingIntent.getBroadcast(context, 1, myIntent, 0));
         }
     }
 }

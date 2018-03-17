@@ -22,7 +22,6 @@ public  class AlarmManagerUtil {
 
     public static void setOnceAlarm(int hourOfDay, int minute, PendingIntent alarmPendingIntent) {
         AlarmManager alarmManager = (AlarmManager)mContext.getSystemService(Context.ALARM_SERVICE);
-
        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
             alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, getTriggerAtMillis(hourOfDay, minute), alarmPendingIntent);
         else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
@@ -30,7 +29,6 @@ public  class AlarmManagerUtil {
         else
             alarmManager.set(AlarmManager.RTC_WAKEUP, getTriggerAtMillis(hourOfDay, minute), alarmPendingIntent);
     }
-
 
     private static long getTriggerAtMillis(int hourOfDay, int minute) {
         GregorianCalendar currentCalendar = (GregorianCalendar) GregorianCalendar.getInstance();

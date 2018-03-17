@@ -23,7 +23,7 @@ public class BroadCaseD extends WakefulBroadcastReceiver {
         Calendar cal = Calendar.getInstance();
         int num = cal.get(Calendar.DAY_OF_WEEK);
 
-        if(num >= 2 && num <= 6){
+//        if(num >= 2 && num <= 6){
 
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -47,19 +47,51 @@ public class BroadCaseD extends WakefulBroadcastReceiver {
             int mNotificationId = 001;
             notificationManager.notify(mNotificationId, mBuilder.build());
 
+//        }
+
+        //Get current time
+        GregorianCalendar currentCalendar = (GregorianCalendar) GregorianCalendar.getInstance();
+        int curHour = currentCalendar.get(GregorianCalendar.HOUR_OF_DAY);
+        int curMin = currentCalendar.get(GregorianCalendar.MINUTE);
+
+        if(curHour < 11  && curMin >= 20){
+            setAlarm(context, "M");
+        }else if(curHour < 17 && curMin >= 20){
+            setAlarm(context, "A");
         }
+    }
+
+    private void setAlarm(Context context, String gubun){
 
         Intent myIntent = new Intent(context, BroadCaseD.class);
-
         AlarmManagerUtil alarmManagerUtil = new AlarmManagerUtil(context);
 
-        GregorianCalendar currentCalendar = (GregorianCalendar) GregorianCalendar.getInstance();
+        int randomMin = (int)(Math.random()*10 + 1);
+        int startCount,endCount,hour;
 
-        int currentHourOfDay = currentCalendar.get(GregorianCalendar.HOUR_OF_DAY);
-        if(currentHourOfDay < 12){
-            AlarmManagerUtil.setOnceAlarm(10,50+(int)(Math.random()*40 + 1),PendingIntent.getBroadcast(context, 0, myIntent, 0));
+        if("M".equals(gubun)){
+            startCount = 0;
+            endCount = 3;
+            hour = 11;
         }else{
-            AlarmManagerUtil.setOnceAlarm(15,50+(int)(Math.random()*40 + 1),PendingIntent.getBroadcast(context, 1, myIntent, 0));
+            startCount = 3;
+            endCount = 6;
+            hour = 18;
+        }
+
+        //test
+        GregorianCalendar currentCalendar = (GregorianCalendar) GregorianCalendar.getInstance();
+        int curHour = currentCalendar.get(GregorianCalendar.HOUR_OF_DAY);
+        int curMin = currentCalendar.get(GregorianCalendar.MINUTE);
+
+        for (int count = startCount ; count < endCount ;count++){
+            AlarmManagerUtil.setOnceAlarm(hour,randomMin + (count%3)*10, PendingIntent.getBroadcast(context, count, myIntent, 0));
+//            if("M".equals(gubun)){
+////                AlarmManagerUtil.setOnceAlarm(10,50+(int)(Math.random()*40 + 1),PendingIntent.getBroadcast(context, 0, myIntent, 0));
+//                alarmManagerUtil.setOnceAlarm(curHour,curMin+1 + (count%3)*1, PendingIntent.getBroadcast(context, count, myIntent, 0));
+//            }else{
+//                alarmManagerUtil.setOnceAlarm(curHour,curMin+1 + (count%3)*1, PendingIntent.getBroadcast(context, count, myIntent, 0));
+//            }
         }
     }
 }

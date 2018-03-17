@@ -25,8 +25,8 @@ public class BootReceiver extends BroadcastReceiver {
 
             AlarmManagerUtil alarmManagerUtil = new AlarmManagerUtil(context);
 
-            AlarmManagerUtil.setOnceAlarm(11,30, PendingIntent.getBroadcast(context, 0, myIntent, 0));
-            AlarmManagerUtil.setOnceAlarm(16,30,PendingIntent.getBroadcast(context, 1, myIntent, 0));
+            AlarmManagerUtil.setOnceAlarm(11,30, PendingIntent.getBroadcast(context, 0, myIntent, 0), true);
+            AlarmManagerUtil.setOnceAlarm(16,30,PendingIntent.getBroadcast(context, 1, myIntent, 0), true);
         }
     }
 

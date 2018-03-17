@@ -20,14 +20,27 @@ public  class AlarmManagerUtil {
         AlarmManagerUtil.mContext = mContext;
     }
 
-    public static void setOnceAlarm(int hourOfDay, int minute, PendingIntent alarmPendingIntent) {
+    public static void setOnceAlarm(int hourOfDay, int minute, PendingIntent alarmPendingIntent, boolean atOnce) {
         AlarmManager alarmManager = (AlarmManager)mContext.getSystemService(Context.ALARM_SERVICE);
        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, getTriggerAtMillis(hourOfDay, minute), alarmPendingIntent);
+           if(atOnce){
+               alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, getTriggerAtMillis(hourOfDay, minute), alarmPendingIntent);
+           }else{
+               alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, getTriggerAtMillis(hourOfDay, minute)+(24*60*60*1000), alarmPendingIntent);
+           }
         else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, getTriggerAtMillis(hourOfDay, minute), alarmPendingIntent);
-        else
-            alarmManager.set(AlarmManager.RTC_WAKEUP, getTriggerAtMillis(hourOfDay, minute), alarmPendingIntent);
+           if(atOnce) {
+               alarmManager.setExact(AlarmManager.RTC_WAKEUP, getTriggerAtMillis(hourOfDay, minute), alarmPendingIntent);
+           }else{
+               alarmManager.setExact(AlarmManager.RTC_WAKEUP, getTriggerAtMillis(hourOfDay, minute)+(24*60*60*1000), alarmPendingIntent);
+           }
+        else {
+           if (atOnce) {
+               alarmManager.set(AlarmManager.RTC_WAKEUP, getTriggerAtMillis(hourOfDay, minute), alarmPendingIntent);
+           }else{
+               alarmManager.set(AlarmManager.RTC_WAKEUP, getTriggerAtMillis(hourOfDay, minute)+(24*60*60*1000), alarmPendingIntent);
+           }
+       }
     }
 
     private static long getTriggerAtMillis(int hourOfDay, int minute) {

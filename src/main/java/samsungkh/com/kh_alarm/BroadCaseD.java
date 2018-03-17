@@ -85,7 +85,7 @@ public class BroadCaseD extends WakefulBroadcastReceiver {
         int curMin = currentCalendar.get(GregorianCalendar.MINUTE);
 
         for (int count = startCount ; count < endCount ;count++){
-            AlarmManagerUtil.setOnceAlarm(hour,randomMin + (count%3)*10, PendingIntent.getBroadcast(context, count, myIntent, 0));
+            AlarmManagerUtil.setOnceAlarm(hour,randomMin + (count%3)*10, PendingIntent.getBroadcast(context, count, myIntent, 0), false);
 //            if("M".equals(gubun)){
 ////                AlarmManagerUtil.setOnceAlarm(10,50+(int)(Math.random()*40 + 1),PendingIntent.getBroadcast(context, 0, myIntent, 0));
 //                alarmManagerUtil.setOnceAlarm(curHour,curMin+1 + (count%3)*1, PendingIntent.getBroadcast(context, count, myIntent, 0));

@@ -52,8 +52,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //            Log.d("jojo", "Main : admin is true");
 //        }
 
-       setAlarm("M");
-       setAlarm("A");
+       setAlarm("M", true);
+       setAlarm("A", true);
 
 //       setAlarm1();
 //       setAlarm2();
@@ -92,11 +92,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Log.d("jojo", "Main :onActivityResult()");
 
-        setAlarm("M");
-        setAlarm("A");
+        setAlarm("M", true);
+        setAlarm("A", true);
     }
 
-    private void setAlarm(String gubun){
+    private void setAlarm(String gubun, boolean atOnce){
 
         Log.d("jojo", "IN setAlarm()");
 
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         for (int count = startCount ; count < endCount ;count++){
             pendingIntent = PendingIntent.getBroadcast(this, count, myIntent, 0);
-            AlarmManagerUtil.setOnceAlarm(hour,randomMin + (count%3)*10, pendingIntent);
+            AlarmManagerUtil.setOnceAlarm(hour,randomMin + (count%3)*10, pendingIntent, atOnce);
             //test용
 //            if("M".equals(gubun)){
 //                alarmManagerUtil.setOnceAlarm(curHour,curMin+1 + (count%3)*1, pendingIntent);
@@ -152,8 +152,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(this, "보안알림 체크완료", Toast.LENGTH_SHORT).show();
 
                 //reset alarm
-                setAlarm("M");
-                setAlarm("A");
+                setAlarm("M", false);
+                setAlarm("A", false);
             }
             finish();
         }

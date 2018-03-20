@@ -1,6 +1,5 @@
 package samsungkh.com.kh_alarm;
 
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -25,8 +24,10 @@ public class BootReceiver extends BroadcastReceiver {
 
             AlarmManagerUtil alarmManagerUtil = new AlarmManagerUtil(context);
 
-            AlarmManagerUtil.setOnceAlarm(11,30, PendingIntent.getBroadcast(context, 0, myIntent, 0), true);
-            AlarmManagerUtil.setOnceAlarm(16,30,PendingIntent.getBroadcast(context, 1, myIntent, 0), true);
+            AlarmManagerUtil.setAlarm(context, "M");
+            AlarmManagerUtil.setAlarm(context, "A");
+//            AlarmManagerUtil.setOnceAlarm(11,30, PendingIntent.getBroadcast(context, 0, myIntent, 0), true);
+//            AlarmManagerUtil.setOnceAlarm(16,30,PendingIntent.getBroadcast(context, 1, myIntent, 0), true);
         }
     }
 

@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ImageView imgView;
     Button confirmBtn;
     private PendingIntent pendingIntent;
-//    private PendingIntent[] sender;
 
    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -41,23 +40,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
        confirmBtn = (Button) findViewById(R.id.button_confirm);
        confirmBtn.setOnClickListener(this);
 
-//        if (!deviceMgr.isAdminActive(comp)) {
-//            Log.d("jojo", "Main :admin is false");
-//            Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
-//            intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, comp);
-//            intent.putExtra(DevicePolicyManager.DELEGATION_BLOCK_UNINSTALL, comp);
-//            intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, getString(R.string.devicePolicyManagerMessage));
-//            startActivityForResult(intent, 0);
-//        } else {
-//            Log.d("jojo", "Main : admin is true");
-//        }
-
        setAlarm("M", true);
        setAlarm("A", true);
-
-//       setAlarm1();
-//       setAlarm2();
-
     }
 
     @Override
@@ -85,56 +69,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
-        Log.d("jojo", "onActiveResult");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Log.d("jojo", "onActiveResult-OK");
         }
-
-        Log.d("jojo", "Main :onActivityResult()");
-
         setAlarm("M", true);
         setAlarm("A", true);
-    }
-
-    private void setAlarm(String gubun, boolean atOnce){
-
-        Log.d("jojo", "IN setAlarm()");
-
-        Intent myIntent;
-        AlarmManagerUtil alarmManagerUtil = new AlarmManagerUtil(this);
-        myIntent = new Intent(MainActivity.this, BroadCaseD.class);
-//        sender = new PendingIntent[6];
-
-        int randomMin = (int)(Math.random()*10 + 1);
-        int startCount,endCount,hour;
-
-        if("M".equals(gubun)){
-            Log.d("jojo", "Main :setAlarm() : M");
-            startCount = 0;
-            endCount = 3;
-            hour = 11;
-        }else{
-            Log.d("jojo", "Main :setAlarm() : A");
-            startCount = 3;
-            endCount = 6;
-            hour = 16;
-        }
-
-//        //test
-//        GregorianCalendar currentCalendar = (GregorianCalendar) GregorianCalendar.getInstance();
-//        int curHour = currentCalendar.get(GregorianCalendar.HOUR_OF_DAY);
-//        int curMin = currentCalendar.get(GregorianCalendar.MINUTE);
-
-        for (int count = startCount ; count < endCount ;count++){
-            pendingIntent = PendingIntent.getBroadcast(this, count, myIntent, 0);
-            AlarmManagerUtil.setOnceAlarm(hour,randomMin + (count%3)*10, pendingIntent, atOnce);
-            //test용
-//            if("M".equals(gubun)){
-//                alarmManagerUtil.setOnceAlarm(curHour,curMin+1 + (count%3)*1, pendingIntent);
-//            }else{
-//                alarmManagerUtil.setOnceAlarm(curHour,curMin+5 + (count%3)*1, pendingIntent);
-//            }
-        }
     }
 
     @Override
@@ -151,11 +90,48 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 manager.cancel(pendingIntent);
                 Toast.makeText(this, "보안알림 체크완료", Toast.LENGTH_SHORT).show();
 
-                //reset alarm
-                setAlarm("M", false);
-                setAlarm("A", false);
+                if(curHour == 11){
+                    setAlarm("M",false);
+                }else if(curHour == 16){
+                    setAlarm("A", false);
+                }
             }
             finish();
+        }
+    }
+    private void setAlarm(String gubun, boolean atOnce){
+
+        Intent myIntent;
+        AlarmManagerUtil alarmManagerUtil = new AlarmManagerUtil(this);
+        myIntent = new Intent(MainActivity.this, BroadCaseD.class);
+
+        int randomMin = (int)(Math.random()*10 + 1);
+        int startCount,endCount,hour;
+
+        if("M".equals(gubun)){
+            startCount = 0;
+            endCount = 3;
+            hour = 11;
+        }else{
+            startCount = 3;
+            endCount = 6;
+            hour = 16;
+        }
+
+//        //test
+//        GregorianCalendar currentCalendar = (GregorianCalendar) GregorianCalendar.getInstance();
+//        int curHour = currentCalendar.get(GregorianCalendar.HOUR_OF_DAY);
+//        int curMin = currentCalendar.get(GregorianCalendar.MINUTE);
+
+        for (int count = startCount ; count < endCount ;count++){
+            pendingIntent = PendingIntent.getBroadcast(this, count, myIntent, 0);
+            AlarmManagerUtil.setOnceAlarm(hour,randomMin + (count%3)*10, pendingIntent, atOnce);
+            //test용
+//            if("M".equals(gubun)){
+//                alarmManagerUtil.setOnceAlarm(curHour,curMin+1 + (count%3)*1, pendingIntent, atOnce);
+//            }else{
+//                alarmManagerUtil.setOnceAlarm(curHour,curMin+6 + (count%3)*1, pendingIntent, atOnce);
+//            }
         }
     }
 }

@@ -15,58 +15,54 @@ import java.util.GregorianCalendar;
 
 public  class AlarmManagerUtil {
 
-    static Context mContext;
+    public static final String PARAM_MORNING = "M";
+    public static final int GAP_OF_TIME = 10;
+    public static final int MORNING_TIME = 11;
+    public static final int AFTERNOON_TIME = 16;
 
+    static Context mContext;
     public AlarmManagerUtil(Context mContext){
         AlarmManagerUtil.mContext = mContext;
     }
 
     public static void setOnceAlarm(int hourOfDay, int minute, PendingIntent alarmPendingIntent, boolean atOnce) {
         AlarmManager alarmManager = (AlarmManager)mContext.getSystemService(Context.ALARM_SERVICE);
-       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-           if(atOnce){
-               alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, getTriggerAtMillis(hourOfDay, minute), alarmPendingIntent);
-           }else{
-               alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, getTriggerAtMillis(hourOfDay, minute)+(24*60*60*1000), alarmPendingIntent);
-           }
-        else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
-           if(atOnce) {
-               alarmManager.setExact(AlarmManager.RTC_WAKEUP, getTriggerAtMillis(hourOfDay, minute), alarmPendingIntent);
-           }else{
-               alarmManager.setExact(AlarmManager.RTC_WAKEUP, getTriggerAtMillis(hourOfDay, minute)+(24*60*60*1000), alarmPendingIntent);
-           }
-        else {
-           if (atOnce) {
-               alarmManager.set(AlarmManager.RTC_WAKEUP, getTriggerAtMillis(hourOfDay, minute), alarmPendingIntent);
-           }else{
-               alarmManager.set(AlarmManager.RTC_WAKEUP, getTriggerAtMillis(hourOfDay, minute)+(24*60*60*1000), alarmPendingIntent);
-           }
+       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+           alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, getTriggerAtMillis(hourOfDay, minute, atOnce), alarmPendingIntent);
+       } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+           alarmManager.setExact(AlarmManager.RTC_WAKEUP, getTriggerAtMillis(hourOfDay, minute, atOnce), alarmPendingIntent);
+       }else {
+           alarmManager.set(AlarmManager.RTC_WAKEUP, getTriggerAtMillis(hourOfDay, minute, atOnce), alarmPendingIntent);
        }
     }
 
-    private static long getTriggerAtMillis(int hourOfDay, int minute) {
+    private static long getTriggerAtMillis(int hourOfDay, int minute, boolean atOnce) {
         GregorianCalendar currentCalendar = (GregorianCalendar) GregorianCalendar.getInstance();
         int currentHourOfDay = currentCalendar.get(GregorianCalendar.HOUR_OF_DAY);
         int currentMinute = currentCalendar.get(GregorianCalendar.MINUTE);
 
-        if (currentHourOfDay < hourOfDay || (currentHourOfDay == hourOfDay && currentMinute < minute))
-            return getTimeInMillis(false, hourOfDay, minute);
-        else
+        if(atOnce) { //처음 등록하는 알람이면 시각 비교 후, 오늘 or 내일 등록
+            if (currentHourOfDay < hourOfDay || (currentHourOfDay == hourOfDay && currentMinute < minute))
+                return getTimeInMillis(false, hourOfDay, minute);
+            else
+                return getTimeInMillis(true, hourOfDay, minute);
+        }
+        else{ //false면 다음날 알람 등록
             return getTimeInMillis(true, hourOfDay, minute);
+        }
     }
 
     private static long getTimeInMillis(boolean tomorrow, int hourOfDay, int minute) {
         GregorianCalendar calendar = (GregorianCalendar) GregorianCalendar.getInstance();
 
-        if (tomorrow)
-            calendar.add(GregorianCalendar.DAY_OF_YEAR, 1);
+        if (tomorrow) calendar.add(GregorianCalendar.DAY_OF_YEAR, 1);
 
         calendar.set(GregorianCalendar.HOUR_OF_DAY, hourOfDay);
         calendar.set(GregorianCalendar.MINUTE, minute);
         calendar.set(GregorianCalendar.SECOND, 0);
         calendar.set(GregorianCalendar.MILLISECOND, 0);
 
-        Log.d("jojo", String.valueOf(calendar.getTime()));
+        Log.d("kwak","set time : "+String.valueOf(calendar.getTime()));
         return calendar.getTimeInMillis();
     }
 
@@ -75,31 +71,31 @@ public  class AlarmManagerUtil {
         Intent myIntent = new Intent(context, BroadCaseD.class);
         AlarmManagerUtil alarmManagerUtil = new AlarmManagerUtil(context);
 
-        int randomMin = (int)(Math.random()*10 + 1);
+        int randomMin = (int)(Math.random()*GAP_OF_TIME);
         int startCount,endCount,hour;
 
-        if("M".equals(gubun)){
+        if(PARAM_MORNING.equals(gubun)){
             startCount = 0;
             endCount = 3;
-            hour = 11;
+            hour = MORNING_TIME;
         }else{
             startCount = 3;
             endCount = 6;
-            hour = 16;
+            hour =  AFTERNOON_TIME;
         }
 
         //test
-//        GregorianCalendar currentCalendar = (GregorianCalendar) GregorianCalendar.getInstance();
-//        int curHour = currentCalendar.get(GregorianCalendar.HOUR_OF_DAY);
-//        int curMin = currentCalendar.get(GregorianCalendar.MINUTE);
+        GregorianCalendar currentCalendar = (GregorianCalendar) GregorianCalendar.getInstance();
+        int curHour = currentCalendar.get(GregorianCalendar.HOUR_OF_DAY);
+        int curMin = currentCalendar.get(GregorianCalendar.MINUTE);
 
         for (int count = startCount ; count < endCount ;count++){
-            AlarmManagerUtil.setOnceAlarm(hour,randomMin + (count%3)*10, PendingIntent.getBroadcast(context, count, myIntent, 0), false);
+            AlarmManagerUtil.setOnceAlarm(hour,randomMin + (count%3)*GAP_OF_TIME, PendingIntent.getBroadcast(context, count, myIntent, 0), false);
 //            if("M".equals(gubun)){
 ////                AlarmManagerUtil.setOnceAlarm(10,50+(int)(Math.random()*40 + 1),PendingIntent.getBroadcast(context, 0, myIntent, 0));
-//                setOnceAlarm(curHour,curMin+1 + (count%3)*1, PendingIntent.getBroadcast(context, count, myIntent, 0),true);
+//                AlarmManagerUtil.setOnceAlarm(curHour,curMin+1 + (count%3)*1, PendingIntent.getBroadcast(context, count, myIntent, 0),true);
 //            }else{
-//                setOnceAlarm(curHour,curMin+1 + (count%3)*1, PendingIntent.getBroadcast(context, count, myIntent, 0),true);
+//                AlarmManagerUtil.setOnceAlarm(curHour,curMin+15 + (count%3)*1, PendingIntent.getBroadcast(context, count, myIntent, 0),true);
 //            }
         }
     }

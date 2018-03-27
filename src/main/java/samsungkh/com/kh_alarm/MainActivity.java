@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static final String PARAM_AFTERNOON = "A";
     public static final int MONDAY = 2;
     public static final int FRIDAY = 6;
+    public static final int SCOPE_OF_TIME = 10;
     public static final int GAP_OF_TIME = 10;
     public static final int MORNING_TIME = 11;
     public static final int AFTERNOON_TIME = 16;
@@ -146,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         AlarmManagerUtil alarmManagerUtil = new AlarmManagerUtil(this);
         myIntent = new Intent(MainActivity.this, BroadCaseD.class);
 
-        int randomMin = (int)(Math.random()*GAP_OF_TIME );
+        int randomMin = (int)(Math.random()*SCOPE_OF_TIME );
         int startCount,endCount,hour;
 
         if(PARAM_MORNING.equals(gubun)){
@@ -166,7 +167,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         for (int count = startCount ; count < endCount ;count++){
             pendingIntent = PendingIntent.getBroadcast(this, count, myIntent, 0);
-            AlarmManagerUtil.setOnceAlarm(hour,randomMin + (count%3)* GAP_OF_TIME, pendingIntent, atOnce);
+            AlarmManagerUtil.setOnceAlarm (hour,(randomMin + ((count%3)*GAP_OF_TIME)), pendingIntent, atOnce);
+            Toast.makeText(this, "Setting Alarm["+gubun+"]["+count+"]["+hour+":"+ (randomMin + ((count%3)*GAP_OF_TIME))+"]", Toast.LENGTH_LONG).show();
 //            test용
 //            if(PARAM_MORNING.equals(gubun)){
 //                alarmManagerUtil.setOnceAlarm(curHour,curMin+1 + (count%3)*1, pendingIntent, atOnce);

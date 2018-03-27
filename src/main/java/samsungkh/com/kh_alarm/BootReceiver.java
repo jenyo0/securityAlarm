@@ -12,6 +12,8 @@ import android.util.Log;
 public class BootReceiver extends BroadcastReceiver {
 
     String INTENT_ACTION = Intent.ACTION_BOOT_COMPLETED;
+    public static final String PARAM_MORNING = "M";
+    public static final String PARAM_AFTERNOON = "A";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -24,10 +26,8 @@ public class BootReceiver extends BroadcastReceiver {
 
             AlarmManagerUtil alarmManagerUtil = new AlarmManagerUtil(context);
 
-            AlarmManagerUtil.setAlarm(context, "M");
-            AlarmManagerUtil.setAlarm(context, "A");
-//            AlarmManagerUtil.setOnceAlarm(11,30, PendingIntent.getBroadcast(context, 0, myIntent, 0), true);
-//            AlarmManagerUtil.setOnceAlarm(16,30,PendingIntent.getBroadcast(context, 1, myIntent, 0), true);
+            AlarmManagerUtil.setAlarm (PARAM_MORNING);
+            AlarmManagerUtil.setAlarm (PARAM_AFTERNOON);
         }
     }
 

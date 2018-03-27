@@ -22,7 +22,7 @@ public class BroadCaseD extends WakefulBroadcastReceiver {
     public static final String PARAM_AFTERNOON = "A";
     public static final int MONDAY = 2;
     public static final int FRIDAY = 6;
-    public static final int LAST_MIN = 19;
+    public static final int LAST_MIN = 20;
     public static final int MORNING_TIME = 11;
     public static final int AFTERNOON_TIME = 16;
 
@@ -63,11 +63,13 @@ public class BroadCaseD extends WakefulBroadcastReceiver {
 
         Log.d("kwak", "ring ring!!  curHour :"+curHour + "curMin :"+curMin);
 
+        AlarmManagerUtil alarmManagerUtil = new AlarmManagerUtil(context);
+
         //마지막꺼 울리고나면 다음날꺼 셋팅
        if(curHour == MORNING_TIME && curMin >= LAST_MIN){
-            AlarmManagerUtil.setAlarm(context, PARAM_MORNING);
+           AlarmManagerUtil.setAlarm (PARAM_MORNING);
        }else if(curHour == AFTERNOON_TIME && curMin >= LAST_MIN ){
-            AlarmManagerUtil.setAlarm(context, PARAM_AFTERNOON);
+           AlarmManagerUtil.setAlarm (PARAM_AFTERNOON);
         }
     }
 }

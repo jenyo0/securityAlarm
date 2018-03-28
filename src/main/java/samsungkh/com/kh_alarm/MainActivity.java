@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -80,16 +81,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode,
-//                                    Intent intent) {
-//        super.onActivityResult(requestCode, resultCode, intent);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            Log.d("jojo", "onActiveResult-OK");
-//        }
-//        setAlarm(PARAM_MORNING, true);
-//        setAlarm(PARAM_AFTERNOON, true);
-//    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Log.d("jojo", "onActiveResult-OK");
+        }
+        setAlarm(PARAM_MORNING, true);
+        setAlarm(PARAM_AFTERNOON, true);
+    }
 
     @Override
     public void onClick(View view) {

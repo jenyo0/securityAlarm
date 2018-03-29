@@ -67,9 +67,9 @@ public class BroadCaseD extends WakefulBroadcastReceiver {
 
         //마지막꺼 울리고나면 다음날꺼 셋팅
        if(curHour == MORNING_TIME && curMin >= LAST_MIN){
-           AlarmManagerUtil.setAlarm (PARAM_MORNING);
+           AlarmManagerUtil.setAlarm (PARAM_MORNING, false);
        }else if(curHour == AFTERNOON_TIME && curMin >= LAST_MIN ){
-           AlarmManagerUtil.setAlarm (PARAM_AFTERNOON);
+           AlarmManagerUtil.setAlarm (PARAM_AFTERNOON, false);
         }
     }
 }

@@ -27,8 +27,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static final String PARAM_AFTERNOON = "A";
     public static final int MONDAY = 2;
     public static final int FRIDAY = 6;
-    public static final int SCOPE_OF_TIME = 10;
-    public static final int GAP_OF_TIME = 10;
     public static final int MORNING_TIME = 11;
     public static final int AFTERNOON_TIME = 16;
 
@@ -36,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ImageView imgView;
     Button confirmBtn;
     private PendingIntent pendingIntent;
+    private AlarmManagerUtil alarmManagerUtil = new AlarmManagerUtil(this);
 
    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -56,8 +55,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
        boolean isFirst = pref.getBoolean(IS_FIRST, true);
 
        if(isFirst){ //최초 실행시 true 저장
-           setAlarm(PARAM_MORNING, true);
-           setAlarm(PARAM_AFTERNOON, true);
+           AlarmManagerUtil.setAlarm (PARAM_MORNING, true);
+           AlarmManagerUtil.setAlarm (PARAM_AFTERNOON, true);
            pref.edit().putBoolean(IS_FIRST,false).apply();
        }
     }
@@ -88,8 +87,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Log.d("jojo", "onActiveResult-OK");
         }
-        setAlarm(PARAM_MORNING, true);
-        setAlarm(PARAM_AFTERNOON, true);
+        AlarmManagerUtil.setAlarm (PARAM_MORNING, true);
+        AlarmManagerUtil.setAlarm (PARAM_AFTERNOON, true);
     }
 
     @Override
@@ -119,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
 
                 Toast.makeText(this, "오전 보안알림 체크완료", Toast.LENGTH_SHORT).show();
-                setAlarm(PARAM_MORNING,false);
+                AlarmManagerUtil.setAlarm (PARAM_MORNING,false);
 
             }else if(curHour == AFTERNOON_TIME){
                 PendingIntent secondRingOfAfternoonIntent = PendingIntent.getBroadcast(this, 4, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -136,46 +135,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     thirdRingOfAfternoonIntent.cancel();
                 }
                 Toast.makeText(this, "오후 보안알림 체크완료", Toast.LENGTH_SHORT).show();
-                setAlarm(PARAM_AFTERNOON, false);
+                AlarmManagerUtil.setAlarm (PARAM_AFTERNOON, false);
             }
             finish();
-        }
-    }
-
-    private void setAlarm(String gubun, boolean atOnce){
-
-        Intent myIntent;
-        AlarmManagerUtil alarmManagerUtil = new AlarmManagerUtil(this);
-        myIntent = new Intent(MainActivity.this, BroadCaseD.class);
-
-        int randomMin = (int)(Math.random()*SCOPE_OF_TIME );
-        int startCount,endCount,hour;
-
-        if(PARAM_MORNING.equals(gubun)){
-            startCount = 0;
-            endCount = 3;
-            hour = MORNING_TIME;
-        }else{
-            startCount = 3;
-            endCount = 6;
-            hour = AFTERNOON_TIME;
-        }
-
-        //test
-//        GregorianCalendar currentCalendar = (GregorianCalendar) GregorianCalendar.getInstance();
-//       int curHour = currentCalendar.get(GregorianCalendar.HOUR_OF_DAY);
-//       int curMin = currentCalendar.get(GregorianCalendar.MINUTE);
-
-        for (int count = startCount ; count < endCount ;count++){
-            pendingIntent = PendingIntent.getBroadcast(this, count, myIntent, 0);
-            AlarmManagerUtil.setOnceAlarm (hour,(randomMin + ((count%3)*GAP_OF_TIME)), pendingIntent, atOnce);
-            Toast.makeText(this, "Setting Alarm["+gubun+"]["+count+"]["+hour+":"+ (randomMin + ((count%3)*GAP_OF_TIME))+"]", Toast.LENGTH_LONG).show();
-//            test용
-//            if(PARAM_MORNING.equals(gubun)){
-//                alarmManagerUtil.setOnceAlarm(curHour,curMin+1 + (count%3)*1, pendingIntent, atOnce);
-//            }else{
-//                alarmManagerUtil.setOnceAlarm(curHour,curMin+15 + (count%3)*3, pendingIntent, atOnce);
-//            }
         }
     }
 }

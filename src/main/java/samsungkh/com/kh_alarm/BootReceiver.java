@@ -26,10 +26,9 @@ public class BootReceiver extends BroadcastReceiver {
 
             AlarmManagerUtil alarmManagerUtil = new AlarmManagerUtil(context);
 
-            AlarmManagerUtil.setAlarm (PARAM_MORNING);
-            AlarmManagerUtil.setAlarm (PARAM_AFTERNOON);
+            AlarmManagerUtil.setAlarm (PARAM_MORNING, true);
+            AlarmManagerUtil.setAlarm (PARAM_AFTERNOON, true);
         }
     }
-
 }
 

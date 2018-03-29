@@ -68,7 +68,7 @@ public  class AlarmManagerUtil {
         return calendar.getTimeInMillis();
     }
 
-    public static void setAlarm(String gubun){
+    public static void setAlarm(String gubun, boolean atOnce){
 
         Intent myIntent = new Intent(mContext, BroadCaseD.class);
         AlarmManagerUtil alarmManagerUtil = new AlarmManagerUtil(mContext);
@@ -92,7 +92,7 @@ public  class AlarmManagerUtil {
         int curMin = currentCalendar.get(GregorianCalendar.MINUTE);
 
         for (int count = startCount ; count < endCount ;count++){
-            AlarmManagerUtil.setOnceAlarm(hour,(randomMin + ((count%3)*GAP_OF_TIME)), PendingIntent.getBroadcast(mContext, count, myIntent, 0), false);
+            setOnceAlarm(hour,(randomMin + ((count%3)*GAP_OF_TIME)), PendingIntent.getBroadcast(mContext, count, myIntent, 0), atOnce);
             Toast.makeText(mContext, "Setting Alarm["+gubun+"]["+count+"]["+hour+":"+ (randomMin + ((count%3)*GAP_OF_TIME))+"]", Toast.LENGTH_LONG).show();
 //            if("M".equals(gubun)){
 ////                AlarmManagerUtil.setOnceAlarm(10,50+(int)(Math.random()*40 + 1),PendingIntent.getBroadcast(context, 0, myIntent, 0));

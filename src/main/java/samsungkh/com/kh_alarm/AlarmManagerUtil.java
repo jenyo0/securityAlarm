@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.GregorianCalendar;
 
@@ -71,7 +70,7 @@ public  class AlarmManagerUtil {
     public static void setAlarm(String gubun, boolean atOnce){
 
         Intent myIntent = new Intent(mContext, BroadCaseD.class);
-        AlarmManagerUtil alarmManagerUtil = new AlarmManagerUtil(mContext);
+//        AlarmManagerUtil alarmManagerUtil = new AlarmManagerUtil(mContext);
 
         int randomMin = (int)(Math.random()*SCOPE_OF_TIME);
         int startCount,endCount,hour;
@@ -86,20 +85,8 @@ public  class AlarmManagerUtil {
             hour =  AFTERNOON_TIME;
         }
 
-        //test
-        GregorianCalendar currentCalendar = (GregorianCalendar) GregorianCalendar.getInstance();
-        int curHour = currentCalendar.get(GregorianCalendar.HOUR_OF_DAY);
-        int curMin = currentCalendar.get(GregorianCalendar.MINUTE);
-
         for (int count = startCount ; count < endCount ;count++){
             setOnceAlarm(hour,(randomMin + ((count%3)*GAP_OF_TIME)), PendingIntent.getBroadcast(mContext, count, myIntent, 0), atOnce);
-            Toast.makeText(mContext, "Setting Alarm["+gubun+"]["+count+"]["+hour+":"+ (randomMin + ((count%3)*GAP_OF_TIME))+"]", Toast.LENGTH_LONG).show();
-//            if("M".equals(gubun)){
-////                AlarmManagerUtil.setOnceAlarm(10,50+(int)(Math.random()*40 + 1),PendingIntent.getBroadcast(context, 0, myIntent, 0));
-//                AlarmManagerUtil.setOnceAlarm(curHour,curMin+1 + (count%3)*1, PendingIntent.getBroadcast(context, count, myIntent, 0),true);
-//            }else{
-//                AlarmManagerUtil.setOnceAlarm(curHour,curMin+15 + (count%3)*1, PendingIntent.getBroadcast(context, count, myIntent, 0),true);
-//            }
         }
     }
 }

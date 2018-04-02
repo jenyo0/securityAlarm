@@ -1,13 +1,11 @@
 package samsungkh.com.kh_alarm;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -51,14 +49,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
        confirmBtn = (Button) findViewById(R.id.button_confirm);
        confirmBtn.setOnClickListener(this);
 
-       SharedPreferences pref = getSharedPreferences(IS_FIRST, Activity.MODE_PRIVATE);
-       boolean isFirst = pref.getBoolean(IS_FIRST, true);
+//       SharedPreferences pref = getSharedPreferences(IS_FIRST, Activity.MODE_PRIVATE);
+//       boolean isFirst = pref.getBoolean(IS_FIRST, true);
 
-       if(isFirst){ //최초 실행시 true 저장
-           AlarmManagerUtil.setAlarm (PARAM_MORNING, true);
-           AlarmManagerUtil.setAlarm (PARAM_AFTERNOON, true);
-           pref.edit().putBoolean(IS_FIRST,false).apply();
-       }
+//       if(isFirst){ //최초 실행시 true 저장
+       AlarmManagerUtil.setAlarm (PARAM_MORNING, true);
+       AlarmManagerUtil.setAlarm (PARAM_AFTERNOON, true);
+//           pref.edit().putBoolean(IS_FIRST,false).apply();
+//       }
     }
 
     @Override

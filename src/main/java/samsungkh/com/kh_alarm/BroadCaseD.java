@@ -22,6 +22,8 @@ public class BroadCaseD extends WakefulBroadcastReceiver {
     public static final String PARAM_AFTERNOON = "A";
     public static final int MONDAY = 2;
     public static final int FRIDAY = 6;
+//    public static final int MONDAY = 1;
+//    public static final int FRIDAY = 7;
     public static final int LAST_MIN = 20;
     public static final int MORNING_TIME = 11;
     public static final int AFTERNOON_TIME = 16;

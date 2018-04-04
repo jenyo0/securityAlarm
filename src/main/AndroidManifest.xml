@@ -29,14 +29,6 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-      <!--  <receiver
-            android:name=".UninstallDeviceAdminReceiver"
-            android:label="Uninstall Lock"
-            android:permission="android.permission.BIND_DEVICE_ADMIN">
-            <meta-data
-                android:name="android.app.device_admin"
-                android:resource="@xml/uninstalllock_admin" />
-        </receiver>-->
     </application>
 
 </manifest>

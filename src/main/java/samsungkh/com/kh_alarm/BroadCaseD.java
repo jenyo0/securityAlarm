@@ -1,12 +1,13 @@
 package samsungkh.com.kh_alarm;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.content.WakefulBroadcastReceiver;
-import android.support.v7.app.NotificationCompat;
+import android.os.Build;
 import android.util.Log;
 
 import java.util.Calendar;
@@ -16,14 +17,12 @@ import java.util.GregorianCalendar;
  * Created by Sangwon on 2017-11-19.
  */
 
-public class BroadCaseD extends WakefulBroadcastReceiver {
+public class BroadCaseD extends BroadcastReceiver {
 
     public static final String PARAM_MORNING = "M";
     public static final String PARAM_AFTERNOON = "A";
     public static final int MONDAY = 2;
     public static final int FRIDAY = 6;
-//    public static final int MONDAY = 1;
-//    public static final int FRIDAY = 7;
     public static final int LAST_MIN = 20;
     public static final int MORNING_TIME = 11;
     public static final int AFTERNOON_TIME = 16;
@@ -36,9 +35,18 @@ public class BroadCaseD extends WakefulBroadcastReceiver {
         if(num >= MONDAY && num <= FRIDAY){
 
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-
-            NotificationCompat.Builder mBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(context)
-                    .setDefaults(Notification.DEFAULT_SOUND|Notification.DEFAULT_VIBRATE)
+            Notification.Builder mBuilder;
+//            NotificationCompat.Builder mBuilder;
+            if(Build.VERSION.SDK_INT >= 26){
+                Log.d("kwak", "오레오");
+                NotificationChannel mChannel = new NotificationChannel ("androidSecuApp","androidSecuApp",NotificationManager.IMPORTANCE_DEFAULT);
+                notificationManager.createNotificationChannel (mChannel);
+                mBuilder = new Notification.Builder (context, mChannel.getId ());
+            }else{
+                mBuilder = new Notification.Builder (context);
+            }
+//            mBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(context)
+            mBuilder.setDefaults(Notification.DEFAULT_SOUND|Notification.DEFAULT_VIBRATE)
                     .setContentTitle("Check your Security!")
                     .setContentText("퇴근 전 보안체크 하시기 바랍니다. 1) 휴대폰 확인 2) 보안용지 확인 3) 책상정돈 4) PC/서랍시건")
                     .setSmallIcon(R.drawable.lock_256px);
@@ -55,7 +63,7 @@ public class BroadCaseD extends WakefulBroadcastReceiver {
 
             mBuilder.setContentIntent(resultPendingIntent);
             int mNotificationId = 001;
-            notificationManager.notify(mNotificationId, mBuilder.build());
+            notificationManager.notify(mNotificationId, mBuilder.build ());
         }
 
         //Get current time

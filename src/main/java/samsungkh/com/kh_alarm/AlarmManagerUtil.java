@@ -17,7 +17,7 @@ public  class AlarmManagerUtil {
 
     public static final String PARAM_MORNING = "M";
     public static final int SCOPE_OF_TIME = 10;
-    public static final int GAP_OF_TIME = 10;
+    public static final int GAP_OF_TIME = 3;
     public static final int MORNING_TIME = 11;
     public static final int AFTERNOON_TIME = 16;
 

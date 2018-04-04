@@ -43,10 +43,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         comp = new ComponentName(this, UninstallDeviceAdminReceiver.class);
 
        setContentView(R.layout.activity_main);
-       imgView = (ImageView) findViewById(R.id.main_img);
+       imgView = findViewById(R.id.main_img);
        imgView.setBackgroundResource(R.drawable.sec_1);
 
-       confirmBtn = (Button) findViewById(R.id.button_confirm);
+       confirmBtn = findViewById(R.id.button_confirm);
        confirmBtn.setOnClickListener(this);
 
 //       SharedPreferences pref = getSharedPreferences(IS_FIRST, Activity.MODE_PRIVATE);

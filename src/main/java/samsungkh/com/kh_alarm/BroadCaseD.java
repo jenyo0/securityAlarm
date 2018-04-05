@@ -38,7 +38,6 @@ public class BroadCaseD extends BroadcastReceiver {
             Notification.Builder mBuilder;
 //            NotificationCompat.Builder mBuilder;
             if(Build.VERSION.SDK_INT >= 26){
-                Log.d("kwak", "오레오");
                 NotificationChannel mChannel = new NotificationChannel ("androidSecuApp","androidSecuApp",NotificationManager.IMPORTANCE_DEFAULT);
                 notificationManager.createNotificationChannel (mChannel);
                 mBuilder = new Notification.Builder (context, mChannel.getId ());
@@ -70,8 +69,6 @@ public class BroadCaseD extends BroadcastReceiver {
         GregorianCalendar currentCalendar = (GregorianCalendar) GregorianCalendar.getInstance();
         int curHour = currentCalendar.get(GregorianCalendar.HOUR_OF_DAY);
         int curMin = currentCalendar.get(GregorianCalendar.MINUTE);
-
-        Log.d("kwak", "ring ring!!  curHour :"+curHour + "curMin :"+curMin);
 
         AlarmManagerUtil alarmManagerUtil = new AlarmManagerUtil(context);
 
